@@ -1,0 +1,1043 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<!-- 防缓存：每次部署后微信/浏览器重新校验 HTML，避免微信 WebView 长期缓存旧页面 -->
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+<meta http-equiv="Pragma" content="no-cache" />
+<meta http-equiv="Expires" content="0" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="description" content="付美雪 Fu Meixue 个人简历（单文件内嵌版 · 可随意拷贝双击打开）" />
+<title>付美雪 · 个人简历</title>
+
+<!-- JS 可用标记：必须在 body 渲染前同步执行，用于启用渐入动画；JS 不可用时内容默认可见 -->
+<script>document.documentElement.classList.add('js');</script>
+<!--
+  Font Awesome 图标：JS 异步加载、绝不阻塞正文渲染（避免微信内 cdnjs 被墙/超时时整页白屏），
+  并按 cdnjs → bootcdn → staticfile → jsdelivr 顺序自动切换国内可访问镜像。
+-->
+<script>
+(function () {
+  var urls = [
+    'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css',
+    'https://cdn.bootcdn.net/ajax/libs/font-awesome/6.5.2/css/all.min.css',
+    'https://cdn.staticfile.net/font-awesome/6.5.2/css/all.min.css',
+    'https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.2/css/all.min.css'
+  ];
+  function load(i) {
+    if (i >= urls.length) return;
+    var l = document.createElement('link');
+    l.rel = 'stylesheet';
+    l.href = urls[i];
+    l.addEventListener('error', function () { load(i + 1); });
+    document.head.appendChild(l);
+  }
+  load(0);
+})();
+</script>
+
+<!-- ================= 样式（内联，双击 file:// 打开也能正常加载） ================= -->
+<style>
+:root {
+  --tech-top: #05142b; --tech-mid: #0c2a55; --tech-bot: #0a3b6e;
+  --tech-glow: rgba(0, 229, 255, 0.28); --bubble: rgba(110, 231, 255, 0.55);
+  --primary: #00e5ff; --primary-soft: rgba(0, 229, 255, 0.15);
+  --accent-mustard: #d4a832;
+  --text-main: #eaf4ff; --text-sub: #9fb5cf;
+  --panel-bg: rgba(12, 42, 85, 0.55); --panel-border: rgba(0, 229, 255, 0.35);
+  --shadow-soft: 0 8px 30px rgba(0, 10, 30, 0.45);
+  --tag-bg: rgba(0, 229, 255, 0.1); --tag-border: rgba(0, 229, 255, 0.5);
+  --name-color: #000000;
+}
+body[data-theme="light"] {
+  --tech-top: #dbeafe; --tech-mid: #eff6ff; --tech-bot: #f8fbff;
+  --tech-glow: rgba(29, 78, 216, 0.22); --bubble: rgba(147, 197, 253, 0.55);
+  --primary: #0284c7; --primary-soft: rgba(37, 99, 235, 0.10);
+  --text-main: #0f172a; --text-sub: #475569;
+  --panel-bg: rgba(255, 255, 255, 0.74); --panel-border: rgba(29, 78, 216, 0.28);
+  --shadow-soft: 0 10px 34px rgba(15, 23, 42, 0.10);
+  --tag-bg: rgba(37, 99, 235, 0.08); --tag-border: rgba(29, 78, 216, 0.32);
+  --name-color: #000000;
+}
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; } html { scroll-behavior: smooth; }
+body {
+  min-height: 100vh;
+  font-family: "PingFang SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif;
+  color: var(--text-main); line-height: 1.6;
+  background: linear-gradient(180deg, var(--tech-top) 0%, var(--tech-mid) 50%, var(--tech-bot) 100%);
+  background-attachment: fixed; position: relative; overflow-x: hidden;
+}
+body::before {
+  content:""; position:fixed; inset:0;
+  background-image: linear-gradient(var(--tech-glow) 1px, transparent 1px), linear-gradient(90deg, var(--tech-glow) 1px, transparent 1px);
+  background-size: 44px 44px;
+  mask-image: radial-gradient(ellipse at 50% 30%, #000 30%, transparent 75%);
+  -webkit-mask-image: radial-gradient(ellipse at 50% 30%, #000 30%, transparent 75%);
+  pointer-events: none; z-index: 0;
+}
+.bubbles { position: fixed; inset: 0; overflow: hidden; pointer-events: none; z-index: 1; }
+.bubble {
+  position:absolute; bottom:-120px; border-radius:50%;
+  background: radial-gradient(circle at 30% 30%, #ffffff66 0%, var(--bubble) 50%, transparent 100%);
+  box-shadow: inset 0 0 10px rgba(255,255,255,0.35), 0 0 18px var(--tech-glow);
+  animation: rise linear infinite;
+}
+@keyframes rise {
+  0% { transform: translateY(0) translateX(0) scale(0.9); opacity:0; }
+  10% { opacity: 0.9; }
+  50% { transform: translateY(-48vh) translateX(30px) scale(1); }
+  100% { transform: translateY(-110vh) translateX(-20px) scale(1.1); opacity:0; }
+}
+.topbar {
+  position: sticky; top:0; z-index: 50;
+  padding: 14px 22px;
+  background: linear-gradient(180deg, rgba(5,20,43,0.85), rgba(5,20,43,0.3));
+  backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--panel-border);
+}
+body[data-theme="light"] .topbar { background: linear-gradient(180deg, rgba(234,244,255,0.9), rgba(234,244,255,0.4)); }
+.brand { color: var(--primary); }
+.btn {
+  padding: 8px 14px; border-radius: 999px; border: 1px solid var(--tag-border);
+  background: var(--tag-bg); color: var(--text-main); cursor: pointer;
+  font-size: 13px; transition: all .2s ease;
+  display: inline-flex; align-items: center; justify-content: center; text-decoration: none;
+}
+.btn:hover { background: var(--primary-soft); transform: translateY(-1px); }
+.btn:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
+.nav-tabs .tab {
+  padding: 7px 13px; border-radius: 8px; cursor: pointer; font-size: 13px;
+  border: 1px solid transparent; color: var(--text-sub); background: transparent; text-align: left;
+}
+.nav-tabs .tab:hover, .nav-tabs .tab.active { background: var(--primary-soft); color: var(--text-main); border-color: var(--tag-border); }
+.nav-tabs .tab:focus-visible { outline: 2px solid var(--primary); outline-offset: 1px; }
+#mainNavList.hidden { display: none; }
+
+.hero-name { color: var(--name-color); text-shadow: 0 0 18px var(--tech-glow); letter-spacing: 6px; }
+.hero-subline { color: var(--primary); }
+.calligraphy { padding-top: 12px; }
+.calligraphy .line {
+  color: var(--accent-mustard);
+  font-family: "STXingkai","华文行楷","KaiTi","楷体","SimKai",cursive;
+  font-weight: 700; letter-spacing: 4px;
+  text-shadow: 2px 3px 0 rgba(0,0,0,0.15);
+  white-space: nowrap;
+  display: inline-block;
+}
+.hero-tags, .contact-row { padding: 4px 2px 10px; scrollbar-width: thin; scrollbar-color: var(--primary) transparent; }
+.hero-tags::-webkit-scrollbar, .contact-row::-webkit-scrollbar { height: 6px; }
+.hero-tags::-webkit-scrollbar-thumb, .contact-row::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 4px; }
+.tag { background: var(--tag-bg); border: 1px solid var(--tag-border); color: var(--text-main); }
+.contact-item { background: var(--panel-bg); border: 1px solid var(--panel-border); box-shadow: var(--shadow-soft); color: var(--text-main); }
+.contact-item .ic { color: var(--primary); font-size: 16px; }
+
+.cosmic-wrap { position: relative; filter: drop-shadow(0 0 18px var(--tech-glow)); }
+.cosmic-svg { width:100%; height:100%; display:block; }
+.orbit-ring { fill:none; stroke:var(--primary); stroke-opacity:0.35; stroke-width:1.2; stroke-dasharray:5 8; }
+.planet-core { animation: pulse 3.2s ease-in-out infinite; transform-origin:center; transform-box: fill-box; }
+@keyframes pulse { 0%,100% { transform: scale(1); opacity:1; } 50% { transform: scale(1.08); opacity:0.88; } }
+.rotating { transform-origin: 190px 190px; transform-box: fill-box; }
+.rot-a { animation: spin 14s linear infinite; }
+.rot-b { animation: spin 20s linear infinite reverse; }
+.rot-c { animation: spin 26s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.skill-label { fill: var(--text-main); font-size: 13px; font-weight: 700; paint-order: stroke; stroke: rgba(0,0,0,0.35); stroke-width: 2px; }
+.skill-dot { fill: var(--primary); stroke: #fff; stroke-width: 1.5; filter: drop-shadow(0 0 5px var(--primary)); }
+
+.card {
+  background: var(--panel-bg); border: 1px solid var(--panel-border);
+  box-shadow: var(--shadow-soft); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); color: var(--text-main);
+}
+.card h2 { color: var(--primary); border-left: 4px solid var(--primary); margin-bottom: 0; }
+.card h2 .sub { font-weight: 500; color: var(--text-sub); }
+
+.map-wrap {
+  background: linear-gradient(135deg, #0d2a55 0%, #144477 60%, #0b6b7a 100%);
+  border: 1px solid var(--panel-border);
+}
+body[data-theme="light"] .map-wrap { background: linear-gradient(135deg, #c8deee 0%, #9fc4de 60%, #83bac4 100%); }
+.map-svg { width:100%; display:block; }
+.map-legend {
+  position: absolute; bottom: 10px; left: 12px;
+  display: flex; gap: 10px; flex-wrap: wrap;
+  background: rgba(0,0,0,0.45); padding: 6px 10px; border-radius: 8px;
+  font-size: 12px; color: #fff; z-index: 2;
+}
+body[data-theme="light"] .map-legend { background: rgba(255,255,255,0.85); color: #111; }
+.legend-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 4px; vertical-align: middle; }
+.map-node { cursor: pointer; transition: transform .2s ease; transform-box: fill-box; transform-origin: center; }
+.map-node:hover { transform: scale(1.3); }
+.route-num circle { fill: #ffd54f; stroke: #fff; stroke-width: 2; }
+.route-num text { font-size:15px; font-weight:900; fill:#1e293b; text-anchor:middle; dominant-baseline:central; }
+.route-line { fill:none; stroke:#ffd54f; stroke-width:3; stroke-dasharray:8 6; opacity:0.95; }
+.map-tip {
+  background: rgba(0,0,0,0.85); color: #fff; padding: 6px 10px; border-radius: 6px;
+  font-size: 12px; transform: translate(-50%, -120%); white-space: nowrap; z-index: 20;
+  border: 1px solid var(--primary); max-width: 360px;
+}
+body[data-theme="light"] .map-tip { background: rgba(255,255,255,0.95); color: #111; }
+.grow-hint { color: var(--text-sub); }
+
+.grow-stage-panel {
+  background: linear-gradient(135deg, var(--primary-soft), rgba(90,240,195,0.08));
+  border: 1px solid var(--tag-border);
+  transition: max-height .55s ease, opacity .4s ease, padding .35s ease, border-color .3s ease;
+}
+.grow-stage-panel.open { max-height: 420px; opacity:1; padding: 20px 0; border-color: var(--primary); }
+.st-title { color: var(--text-main); }
+.grow-stage-body { color: var(--text-main); }
+.grow-stage-body .k { color: var(--primary); font-weight:700; margin-right:6px; }
+
+.skill { background: var(--primary-soft); border: 1px solid var(--tag-border); }
+.skill-name { color: var(--text-main); }
+.skill-bar { background: rgba(255,255,255,0.1); border-radius: 999px; overflow: hidden; }
+body[data-theme="light"] .skill-bar { background: rgba(10,94,184,0.1); }
+.skill-fill { height: 100%; background: linear-gradient(90deg, var(--primary), #5af0c3); border-radius: 999px; }
+.skill-note { color: var(--text-sub); }
+
+.plane-section { text-align: center; }
+.plane-card { position: relative; display: inline-block; background: transparent; border: none; box-shadow: none; cursor: pointer; padding: 0; }
+.plane-card:focus-visible { outline: 2px solid var(--primary); outline-offset: 3px; border-radius: 12px; }
+.plane-svg { display:block; max-width:100%; height: auto; }
+.plane-title { font-size: 28px; font-weight: 900; letter-spacing: 2px; fill: #111; font-family: "PingFang SC","Microsoft YaHei",inherit; }
+.plane-sub { font-size: 12px; fill: #555; }
+body[data-theme="light"] .plane-title, body[data-theme="light"] .plane-sub { fill: #111; }
+
+.awards-detail { transition: max-height .65s ease, opacity .5s ease, margin-top .45s ease; max-height: 3000px; opacity: 1; margin-top: 22px; }
+.awards-detail.collapsed { max-height: 0; opacity: 0; margin-top: 0; overflow: hidden; }
+.award-item { background: var(--primary-soft); border: 1px solid var(--tag-border); }
+.award-img {
+  background: linear-gradient(135deg, #334155, #0f172a); color: #cbd5e1;
+  border: 1px dashed rgba(255,255,255,0.2); margin-top: 6px;
+}
+body[data-theme="light"] .award-img { background: linear-gradient(135deg, #e2e8f0, #cbd5e1); color: #475569; border-color: rgba(10,94,184,0.3); }
+
+.award-cert-img {
+  width: 100%; aspect-ratio: 1 / 1; border-radius: 9999px; object-fit: cover;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.25); border: 3px solid #ffffff;
+  transition: transform .3s ease, box-shadow .3s ease; display: block;
+  -webkit-print-color-adjust: exact; print-color-adjust: exact;
+}
+.award-cert-img:hover { transform: scale(1.05); box-shadow: 0 10px 30px rgba(0,229,255,0.35); }
+.award-img-fallback {
+  width: 100%; aspect-ratio: 1 / 1; border-radius: 9999px;
+  display: none; flex-direction: column; align-items: center; justify-content: center;
+  background: linear-gradient(135deg, #334155, #0f172a); color: #cbd5e1;
+  font-size: 11px; text-align: center; padding: 10px; line-height: 1.5;
+  border: 1px dashed rgba(255,255,255,0.2); box-sizing: border-box;
+}
+.award-img-fallback i { font-size: 22px; margin-bottom: 4px; opacity: 0.7; }
+body[data-theme="light"] .award-img-fallback { background: linear-gradient(135deg, #e2e8f0, #cbd5e1); color: #475569; border-color: rgba(10,94,184,0.3); }
+
+.tree-wrap {
+  background: linear-gradient(180deg, #bde6ff 0%, #e8f7c7 55%, #9fd46b 100%);
+  padding: 0; border: 1px solid var(--panel-border);
+}
+body[data-theme="light"] .tree-wrap { background: linear-gradient(180deg, #d8edff 0%, #f1fbe0 55%, #bde58f 100%); }
+.tree-svg { display:block; }
+.leaf-group { transform-origin: 50% 100%; transform-box: view-box; }
+.leaf-sway-a { animation: swayA 4.2s ease-in-out infinite; }
+.leaf-sway-b { animation: swayB 5.5s ease-in-out infinite; }
+.leaf-sway-c { animation: swayA 6.4s ease-in-out infinite; }
+@keyframes swayA { 0%,100% { transform: rotate(-2deg); } 50% { transform: rotate(2.5deg); } }
+@keyframes swayB { 0%,100% { transform: rotate(2deg); } 50% { transform: rotate(-2.5deg); } }
+
+.hobby-chip {
+  position: absolute; background: rgba(0,0,0,0.78); border: 2px solid #ffffff; border-radius: 999px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.55); color: #ffffff;
+  animation: chipFloat 5s ease-in-out infinite; user-select: none; -webkit-user-select: none;
+}
+.hobby-chip .hc-num {
+  width: 34px; height: 34px; border-radius: 50%;
+  background: #ff6b6b; color: #ffffff; font-weight: 900;
+  display: inline-flex; align-items:center; justify-content:center;
+  border: 2px solid #fff; flex-shrink: 0;
+}
+.hobby-chip .hc-emoji { font-size: 26px; line-height: 1; flex-shrink: 0; }
+.hobby-chip .hc-name {
+  font-size: 18px; font-weight: 800; color: #ffffff;
+  white-space: nowrap; text-shadow: 0 1px 2px rgba(0,0,0,0.9);
+}
+@keyframes chipFloat { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+.hc-pos-1 { top:38%; left:4%; }
+.hc-pos-2 { top:12%; left:22%; }
+.hc-pos-3 { top:40%; right:4%; }
+.hc-pos-4 { top:12%; right:22%; }
+
+.hobby-photo {
+  position: absolute; z-index: 8;
+  width: 130px; height: 130px; border-radius: 16px; overflow: hidden;
+  border: 3px solid #ffffff; box-shadow: 0 8px 20px rgba(0,0,0,0.35);
+  transition: transform .3s ease, box-shadow .3s ease;
+  -webkit-print-color-adjust: exact; print-color-adjust: exact;
+}
+.hobby-photo img { width: 100%; height: 100%; object-fit: contain; display: block; }
+.hobby-photo .hp-fallback { display: none; }
+.hobby-photo.img-error { background: rgba(0,0,0,0.7); }
+.hobby-photo.img-error .hp-fallback {
+  display: flex; align-items: center; justify-content: center; width: 100%; height: 100%;
+  color: #fff; font-size: 11px; font-weight: 600; text-align: center; padding: 6px; line-height: 1.4; box-sizing: border-box;
+}
+.hobby-photo:hover { transform: translateY(-4px) scale(1.05); box-shadow: 0 14px 30px rgba(90,240,195,0.4); }
+.hp-1 { top: 55%; left: 6%; }
+.hp-2 { top: 26%; left: 22%; }
+.hp-3 { top: 57%; right: 6%; }
+.hp-4 { top: 26%; right: 22%; }
+
+.expect-card { background: linear-gradient(135deg, var(--primary-soft), rgba(90,240,195,0.08)); border: 1px solid var(--tag-border); }
+.expect-card h3 { color: var(--primary); }
+.expect-card p { color: var(--text-main); }
+
+/* 默认可见：JS 未运行/被拦截时内容直接显示；只有 html.js 时才启用渐入（由 head 同步脚本提前打标，无闪烁） */
+.fade-in { transition: opacity .6s ease, transform .6s ease; }
+html.js .fade-in { opacity: 0; transform: translateY(20px); will-change: opacity, transform; }
+html.js .fade-in.show { opacity: 1; transform: translateY(0); }
+/* 安全兜底：JS 已运行但观察器因任何原因未触发时，2 秒后动画自动显示 */
+@keyframes fadeInSafety { to { opacity: 1; transform: translateY(0); } }
+html.js .fade-in:not(.show) { animation: fadeInSafety 0.6s ease 2s forwards; }
+
+/* 视频容器 fallback - 不依赖 Tailwind aspect-video */
+#skillVideo { width: 100%; height: auto; aspect-ratio: 16 / 9; display: block; }
+#skillVideoPlaceholder { position: absolute; inset: 0; }
+
+@media (max-width: 900px) {
+  .hero-name { font-size: 58px; letter-spacing: 4px; }
+  .hero-subline { font-size: 18px; }
+  .calligraphy .line { font-size: 46px; letter-spacing: 2px; }
+  .cosmic-wrap { width: 320px !important; height: 320px !important; }
+  .hobby-chip .hc-name { font-size: 15px; }
+  .hobby-chip .hc-emoji { font-size: 22px; }
+  .hobby-chip .hc-num { width: 28px; height: 28px; font-size: 15px; }
+  .hc-pos-1 { top:38%; left:2%; } .hc-pos-2 { top:12%; left:10%; }
+  .hc-pos-3 { top:40%; right:2%; } .hc-pos-4 { top:12%; right:10%; }
+  .hobby-photo { width: 110px; height: 110px; }
+  .hp-1 { top: 55%; left: 4%; } .hp-2 { top: 26%; left: 10%; }
+  .hp-3 { top: 57%; right: 4%; } .hp-4 { top: 26%; right: 10%; }
+}
+@media (max-width: 600px) {
+  body { background-attachment: scroll; }
+  .topbar { padding: 10px 14px; }
+  .brand { font-size: 15px; letter-spacing: 0.5px; }
+  .hero-name { font-size: 44px; letter-spacing: 3px; }
+  .hero-subline { font-size: 16px; letter-spacing: 1px; }
+  .calligraphy { padding-top: 6px; }
+  .calligraphy .line { font-size: 34px; letter-spacing: 2px; }
+  .card { border-radius: 18px; }
+  .card h2 { font-size: 18px; padding-left: 10px; }
+  .cosmic-wrap { width: 280px !important; height: 280px !important; }
+  .plane-svg { width: 100%; height: auto; }
+  .tree-wrap, .tree-svg { height: 460px !important; }
+  .hobby-chip { padding: 7px 11px 7px 6px; gap: 8px; }
+  .hobby-chip .hc-name { font-size: 13.5px; }
+  .hobby-chip .hc-emoji { font-size: 19px; }
+  .hobby-chip .hc-num { width: 26px; height: 26px; font-size: 14px; border-width: 1.5px; }
+  .hc-pos-1 { top:43%; left:2%; } .hc-pos-2 { top:14%; left:4%; }
+  .hc-pos-3 { top:45%; right:2%; } .hc-pos-4 { top:14%; right:4%; }
+  .hobby-photo { width: 88px; height: 88px; border-width: 2px; border-radius: 12px; }
+  .hp-1 { top: 58%; left: 2%; } .hp-2 { top: 28%; left: 4%; }
+  .hp-3 { top: 60%; right: 2%; } .hp-4 { top: 28%; right: 4%; }
+  .grow-stage-panel > div { padding: 14px 14px !important; }
+  .map-legend { font-size: 11px; gap: 6px; padding: 5px 8px; }
+}
+@media print {
+  @page { margin: 12mm 10mm; size: A4; }
+  .topbar, .bubbles, body::before, #hamburgerBtn, .grow-hint { display: none !important; }
+  html, body { background: #fff !important; color: #111 !important; font-size: 12.5pt; line-height: 1.45; }
+  .awards-detail, .grow-stage-panel { max-height: none !important; opacity: 1 !important; overflow: visible !important; display: block !important; }
+  .awards-detail.collapsed { max-height: none !important; opacity: 1 !important; overflow: visible !important; }
+  .hero-tags, .contact-row { overflow: visible !important; flex-wrap: wrap !important; }
+  .hobby-chip { background: #222 !important; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+  .hobby-photo, .award-cert-img { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+  .skill-fill, .map-wrap, .tree-wrap, .award-img, .expect-card, .skill { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+  .card {
+    background: #ffffff !important; color: #111111 !important;
+    border: 1px solid #bbbbbb !important; box-shadow: none !important;
+    backdrop-filter: none !important; -webkit-backdrop-filter: none !important; break-inside: avoid;
+  }
+  section { break-inside: avoid; }
+  footer { color: #555 !important; margin-top: 20px; }
+  .hero-name { text-shadow: none !important; }
+  video { display: none !important; }
+  #skillVideoPlaceholder { position: static !important; background: #f1f5f9 !important; border: 1px dashed #94a3b8 !important; color: #111 !important; pointer-events: auto !important; }
+}
+</style>
+
+
+
+<style>
+/* ==================== starfield background: per-section twinkling stars (dark theme only) ==================== */
+section.fade-in { position: relative; }
+.stars-layer {
+  position: absolute; inset: 0; z-index: 0;
+  overflow: hidden; pointer-events: none;
+  border-radius: inherit;
+}
+section.fade-in > *:not(.stars-layer) { position: relative; z-index: 1; }
+.star-dot {
+  position: absolute; border-radius: 50%;
+  background: #ffffff; color: #ffffff;
+  opacity: 0;
+  animation: star-twinkle linear infinite;
+  will-change: opacity, transform;
+}
+.star-dot.star-bright { box-shadow: 0 0 6px 1px currentColor; }
+@keyframes star-twinkle {
+  0%, 100% { opacity: 0.15; transform: scale(0.55); }
+  50%      { opacity: 0.9;  transform: scale(1); }
+}
+.star-shoot {
+  position: absolute; width: 90px; height: 1.5px; border-radius: 999px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.85));
+  opacity: 0; pointer-events: none;
+  animation: star-shoot-fly linear infinite;
+}
+@keyframes star-shoot-fly {
+  0%   { opacity: 0; transform: translate3d(0,0,0) rotate(22deg); }
+  3%   { opacity: 0.7; }
+  11%  { opacity: 0; transform: translate3d(-280px, 120px, 0) rotate(22deg); }
+  100% { opacity: 0; transform: translate3d(-280px, 120px, 0) rotate(22deg); }
+}
+body[data-theme="light"] .stars-layer { display: none; }
+@media print { .stars-layer { display: none !important; } }
+@media (prefers-reduced-motion: reduce) {
+  .star-dot { animation: none !important; opacity: 0.35; }
+  .star-shoot { display: none !important; }
+}
+</style>
+
+<!-- 本地静态 Tailwind 兼容层（替代 cdn.tailwindcss.com，微信/断网/CDN 被墙时排版不塌）；?v 用于微信缓存刷新 -->
+<link rel="stylesheet" href="css/tailwind.css?v=20260910" />
+<!-- 终极兜底：JS 被禁用时强制显示所有渐入区块 -->
+<noscript><style>.fade-in { opacity: 1 !important; transform: none !important; }</style></noscript>
+</head>
+<body data-theme="dark">
+<!-- 同步主题初始化：在页面渲染前读取 localStorage，避免主题闪烁/颜色不一致 -->
+<script>(function(){try{var t=localStorage.getItem('fmx_theme');if(t)document.body.setAttribute('data-theme',t);}catch(e){}})();</script>
+
+<div class="bubbles" id="bubbles"></div>
+
+<!-- ========== 顶部导航栏 ========== -->
+<header class="topbar sticky top-0 z-50 flex flex-col md:flex-row items-start md:items-center justify-between">
+  <div class="w-full md:w-auto flex items-center justify-between gap-4 md:gap-0">
+    <div class="brand font-bold text-lg tracking-wider flex items-center gap-2">
+      <i class="fa-solid fa-sparkles" aria-hidden="true"></i><span>FMX · 简历</span>
+    </div>
+    <button id="hamburgerBtn" type="button" aria-label="切换导航菜单" aria-expanded="false" aria-controls="mainNavList"
+            class="md:hidden btn !px-3 !py-2 text-base">
+      <i class="fa-solid fa-bars" aria-hidden="true"></i>
+    </button>
+    <div class="actions hidden md:flex items-center gap-2 flex-wrap">
+      <button class="btn" id="themeBtn" type="button"><i class="fa-solid fa-circle-half-stroke mr-1.5"></i>切换主题</button>
+      <button class="btn" type="button" onclick="window.print()"><i class="fa-solid fa-file-pdf mr-1.5"></i>导出 PDF</button>
+    </div>
+  </div>
+  <nav class="nav-tabs mt-3 md:mt-0 w-full md:w-auto hidden md:flex flex-col md:flex-row gap-1.5 flex-wrap"
+       id="mainNavList" aria-label="简历栏目导航">
+    <div id="navTabs" role="tablist" class="flex flex-col md:flex-row gap-1.5 flex-wrap w-full">
+      <button role="tab" class="tab active" data-target="hero" aria-selected="true">首页</button>
+      <button role="tab" class="tab" data-target="grow" aria-selected="false">成长经历</button>
+      <button role="tab" class="tab" data-target="skills" aria-selected="false">专业技能</button>
+      <button role="tab" class="tab" data-target="awards" aria-selected="false">获奖证书</button>
+      <button role="tab" class="tab" data-target="hobby" aria-selected="false">兴趣爱好</button>
+      <button role="tab" class="tab" data-target="skillsShow" aria-selected="false">技能展示</button>
+      <button role="tab" class="tab" data-target="expect" aria-selected="false">未来展望</button>
+      <div class="mt-2 pt-2 border-t border-slate-500/40 flex flex-wrap gap-2 md:hidden">
+        <button class="btn w-full" id="themeBtnMobile" type="button"><i class="fa-solid fa-circle-half-stroke mr-1.5"></i>切换主题</button>
+        <button class="btn w-full" type="button" onclick="window.print()"><i class="fa-solid fa-file-pdf mr-1.5"></i>导出 PDF</button>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<main class="relative z-10 container mx-auto px-5 py-8 md:py-10 max-w-6xl">
+
+  <!-- ========== ① 首页 Hero ========== -->
+  <section id="hero" class="fade-in mb-10 md:mb-14 scroll-mt-24">
+    <div class="card rounded-3xl p-6 md:p-8">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10 items-center">
+        <div class="flex flex-col items-center md:items-start text-center md:text-left gap-5">
+          <div class="flex flex-col items-center md:items-start gap-2">
+            <h1 class="hero-name text-6xl md:text-7xl font-black tracking-[0.3em] mt-1 mb-3">付美雪</h1>
+            <p class="hero-subline text-xl md:text-2xl font-semibold tracking-widest">让 AI 对话更有人情味</p>
+          </div>
+          <div class="calligraphy self-stretch my-2 flex justify-center md:justify-start">
+            <span class="line text-5xl md:text-6xl leading-snug drop-shadow-md">找到自己的频率，随性且自由</span>
+          </div>
+          <div class="hero-tags flex flex-nowrap md:flex-wrap gap-2 overflow-x-auto pb-2 self-stretch w-full justify-center md:justify-start">
+            <span class="tag inline-flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-xs md:text-sm whitespace-nowrap"><i class="fa-solid fa-sparkles"></i> ESFP · 热情积极</span>
+            <span class="tag inline-flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-xs md:text-sm whitespace-nowrap"><i class="fa-solid fa-fire"></i> 充满斗志</span>
+            <span class="tag inline-flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-xs md:text-sm whitespace-nowrap"><i class="fa-solid fa-microphone-lines"></i> 擅长朗诵</span>
+            <span class="tag inline-flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-xs md:text-sm whitespace-nowrap"><i class="fa-solid fa-robot"></i> AI 编程 · 学习中</span>
+            <span class="tag inline-flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-xs md:text-sm whitespace-nowrap"><i class="fa-solid fa-globe-asia"></i> 人文 × 科技</span>
+          </div>
+          <div class="contact-row flex flex-nowrap md:flex-wrap gap-2.5 overflow-x-auto pb-2 self-stretch w-full justify-center md:justify-start">
+            <div class="contact-item flex items-center gap-2 px-3 py-2 rounded-xl whitespace-nowrap text-sm"><i class="ic fa-solid fa-mobile-screen-button"></i><span>手机：15333870692</span></div>
+            <div class="contact-item flex items-center gap-2 px-3 py-2 rounded-xl whitespace-nowrap text-sm"><i class="ic fa-brands fa-weixin"></i><span>微信：wxid-hhvcm820ymgc22</span></div>
+            <div class="contact-item flex items-center gap-2 px-3 py-2 rounded-xl whitespace-nowrap text-sm"><i class="ic fa-brands fa-qq"></i><span>QQ：1599161078</span></div>
+            <div class="contact-item flex items-center gap-2 px-3 py-2 rounded-xl whitespace-nowrap text-sm"><i class="ic fa-solid fa-location-dot"></i><span>河南周口 → 步入信阳</span></div>
+          </div>
+        </div>
+        <div class="flex justify-center items-center">
+          <div class="cosmic-wrap w-[380px] h-[380px]">
+            <svg viewBox="0 0 380 380" class="cosmic-svg w-full h-full" xmlns="http://www.w3.org/2000/svg">
+              <g fill="#ffffff55">
+                <circle cx="30" cy="50" r="1.2"/><circle cx="350" cy="70" r="1"/>
+                <circle cx="60" cy="320" r="1.3"/><circle cx="320" cy="310" r="0.9"/>
+                <circle cx="200" cy="40" r="1"/><circle cx="40" cy="200" r="1"/>
+                <circle cx="340" cy="210" r="1.1"/>
+              </g>
+              <ellipse class="orbit-ring" cx="190" cy="190" rx="170" ry="85"/>
+              <ellipse class="orbit-ring" cx="190" cy="190" rx="140" ry="140" transform="rotate(25 190 190)"/>
+              <ellipse class="orbit-ring" cx="190" cy="190" rx="90" ry="130" transform="rotate(-18 190 190)"/>
+              <ellipse class="orbit-ring" cx="190" cy="190" rx="55" ry="55"/>
+              <g class="planet-core">
+                <defs><radialGradient id="planetGrad" cx="35%" cy="30%"><stop offset="0%" stop-color="#5af0c3"/><stop offset="60%" stop-color="#00e5ff"/><stop offset="100%" stop-color="#0a5eb8"/></radialGradient></defs>
+                <circle cx="190" cy="190" r="32" fill="url(#planetGrad)" stroke="#fff" stroke-opacity="0.4"/>
+                <circle cx="178" cy="178" r="7" fill="#ffffff77"/>
+              </g>
+              <g class="rotating rot-a">
+                <g transform="translate(360,190)"><circle class="skill-dot" cx="0" cy="0" r="7"/><text class="skill-label" x="14" y="5">AI 编程</text></g>
+                <g transform="translate(20,190)"><circle class="skill-dot" cx="0" cy="0" r="7"/><text class="skill-label" x="-100" y="5">打羽毛球</text></g>
+              </g>
+              <g class="rotating rot-b">
+                <g transform="translate(190,50)"><circle class="skill-dot" cx="0" cy="0" r="7"/><text class="skill-label" x="-32" y="-10">朗诵口才</text></g>
+                <g transform="translate(190,330)"><circle class="skill-dot" cx="0" cy="0" r="7"/><text class="skill-label" x="-32" y="22">文学创作</text></g>
+              </g>
+              <g class="rotating rot-c">
+                <g transform="translate(300,100)"><circle class="skill-dot" cx="0" cy="0" r="7"/><text class="skill-label" x="14" y="5">AI 小游戏</text></g>
+              </g>
+            </svg>
+          </div>
+        </div>
+      </div>
+      <div class="mt-6 text-center text-sm opacity-70">
+        <i class="fa-solid fa-angles-down animate-bounce mr-1.5"></i>向下滚动查看成长经历、技能、证书等完整简历
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== ② 成长经历 ========== -->
+  <section id="grow" class="fade-in mb-10 md:mb-14 scroll-mt-24">
+    <div class="card rounded-3xl p-5 md:p-7">
+      <h2 class="text-xl md:text-2xl font-bold pl-4 py-2 mb-4 flex items-center gap-3">
+        <i class="fa-solid fa-plane-departure mr-1"></i> 成长经历
+        <span class="sub text-sm md:text-base font-normal text-[var(--text-sub)] ml-1 border-0 p-0">· 航拍足迹 · 点击数字节点查看历程</span>
+      </h2>
+      <div class="map-wrap rounded-2xl overflow-hidden relative w-full aspect-[800/420]">
+        <svg viewBox="0 0 800 420" preserveAspectRatio="xMidYMid meet" class="w-full h-full map-svg" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="terrainSea" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#1a6ea8" stop-opacity="0.85"/><stop offset="100%" stop-color="#0a3d73" stop-opacity="0.95"/></linearGradient>
+            <linearGradient id="terrainLand" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#b88a4a"/><stop offset="28%" stop-color="#c9a76b"/><stop offset="55%" stop-color="#7ea856"/><stop offset="80%" stop-color="#5aa24c"/><stop offset="100%" stop-color="#4a9147"/></linearGradient>
+            <filter id="softShadow"><feGaussianBlur stdDeviation="1.2"/></filter>
+          </defs>
+          <rect width="800" height="420" fill="url(#terrainSea)"/>
+          <path d="M160,105 C200,80 250,70 300,75 C355,80 410,65 460,75 C515,85 565,70 610,95 C640,112 660,130 678,158 C700,190 710,220 700,255 C688,288 668,308 645,328 C620,350 585,365 548,372 C510,378 475,395 440,398 C405,400 370,390 338,375 C305,360 275,370 245,362 C210,352 180,335 155,310 C128,282 110,250 105,215 C100,180 112,145 135,120 C143,112 152,108 160,105 Z M188,308 C200,318 212,326 228,330 C245,334 262,330 275,322 C268,310 256,302 240,300 C222,299 205,302 188,308 Z M172,340 C186,348 202,354 220,356 C238,358 256,354 270,346 C258,338 240,335 222,336 C204,337 188,342 172,340 Z"
+                fill="url(#terrainLand)" stroke="#2b1e10" stroke-width="2" filter="url(#softShadow)"/>
+          <path d="M200,110 C230,140 260,160 300,170 C320,175 345,178 370,190 C390,200 410,215 430,230" fill="none" stroke="#7a5a28" stroke-width="1.6" stroke-dasharray="6 5" opacity="0.75"/>
+          <path d="M240,310 C280,295 320,285 360,290 C400,295 440,300 480,290 C520,280 560,265 600,255" fill="none" stroke="#4e6d2c" stroke-width="1.6" stroke-dasharray="6 5" opacity="0.75"/>
+          <path d="M220,135 l10,-15 l10,15 l10,-18 l12,18 l10,-12 l8,12" fill="none" stroke="#6b4a22" stroke-width="2" opacity="0.7"/>
+          <path d="M290,165 l8,-12 l8,12 l10,-16 l12,16 l8,-10 l10,10" fill="none" stroke="#6b4a22" stroke-width="2" opacity="0.7"/>
+          <path d="M430,110 l8,-10 l8,10 l10,-14 l10,14 l8,-8 l10,8" fill="none" stroke="#6b4a22" stroke-width="2" opacity="0.7"/>
+          <path d="M260,150 C300,170 350,180 420,200 C490,218 560,240 640,245" fill="none" stroke="#2d7fc9" stroke-width="2.2" opacity="0.85"/>
+          <path d="M280,240 C340,255 420,268 510,272 C570,274 620,280 665,295" fill="none" stroke="#2d7fc9" stroke-width="2.2" opacity="0.85"/>
+          <path class="route-line" d="M590,180 L575,240 L556,305 L530,372"><animate attributeName="stroke-dashoffset" values="0;-28" dur="1.5s" repeatCount="indefinite"/></path>
+          <g class="map-node route-num" data-stage="1" data-title="小学 · 启蒙成长" data-sub="河南周口 · 小学阶段" data-content="【阶段】小学 · 启蒙成长&lt;br/&gt;&lt;span class=&quot;k&quot;&gt;坐标：&lt;/span&gt;河南周口&lt;br/&gt;&lt;span class=&quot;k&quot;&gt;收获：&lt;/span&gt;培养良好学习习惯，爱上阅读与文字，课堂发言锻炼表达胆量，语文基础逐步建立，性格开朗爱交朋友。"><circle cx="590" cy="180" r="18"/><text x="590" y="180">1</text></g>
+          <g class="map-node route-num" data-stage="2" data-title="初中 · 基础夯实" data-sub="河南周口 · 初中阶段" data-content="【阶段】初中 · 基础夯实&lt;br/&gt;&lt;span class=&quot;k&quot;&gt;坐标：&lt;/span&gt;河南周口&lt;br/&gt;&lt;span class=&quot;k&quot;&gt;收获：&lt;/span&gt;语文与理科基础并重，开始系统学习数理化；积极参加校园朗诵比赛、作文竞赛，语言表达能力快速提升；担任班干部，锻炼责任心与协作能力。"><circle cx="575" cy="240" r="18"/><text x="575" y="240">2</text></g>
+          <g class="map-node route-num" data-stage="3" data-title="高中 · 理科深造" data-sub="河南周口 · 高中阶段（理科）" data-content="【阶段】高中 · 理科深造&lt;br/&gt;&lt;span class=&quot;k&quot;&gt;坐标：&lt;/span&gt;河南周口&lt;br/&gt;&lt;span class=&quot;k&quot;&gt;收获：&lt;/span&gt;理科方向深入学习（数学/物理/生物/地理），逻辑思维与抗压能力大幅提升；课余坚持朗诵、阅读与写作，人文素养同步积累；多次参与文艺汇演与学科竞赛。"><circle cx="556" cy="305" r="18"/><text x="556" y="305">3</text></g>
+          <g class="map-node route-num" data-stage="4" data-title="大学 · 即将启程" data-sub="河南信阳 · 信阳学院 · 汉语言文学" data-content="【阶段】大学 · 即将启程&lt;br/&gt;&lt;span class=&quot;k&quot;&gt;坐标：&lt;/span&gt;河南信阳&lt;br/&gt;&lt;span class=&quot;k&quot;&gt;学校 / 专业：&lt;/span&gt;信阳学院 · 汉语言文学专业&lt;br/&gt;&lt;span class=&quot;k&quot;&gt;规划：&lt;/span&gt;深耕文学专业、持续学习 AI 工具与编程，探索「人文 × 科技」的跨界方向；积极参与社团、朗诵、演讲、主持等活动，在更大的舞台展现自己。"><circle cx="530" cy="372" r="18"/><text x="530" y="372">4</text></g>
+          <text x="620" y="178" font-size="14" font-weight="700" fill="#fff" paint-order="stroke" stroke="#000" stroke-width="2.2">周口</text>
+          <text x="555" y="395" font-size="14" font-weight="700" fill="#fff" paint-order="stroke" stroke="#000" stroke-width="2.2">信阳</text>
+        </svg>
+        <div id="mapTip" class="map-tip absolute pointer-events-none" style="display:none;"></div>
+        <div class="map-legend">
+          <span><span class="legend-dot" style="background:#ffd54f;"></span>成长路线 1→2→3→4</span>
+          <span><span class="legend-dot" style="background:#ff6b6b;"></span>小学·初中·高中（周口）</span>
+          <span><span class="legend-dot" style="background:#4dd0e1;"></span>大学（信阳）</span>
+        </div>
+      </div>
+      <div class="grow-hint text-sm mt-3 text-center"><i class="fa-solid fa-hand-pointer mr-1"></i>⬆ 点击地图上的数字节点 ① ② ③ ④，即可展开查看对应阶段的成长历程 ⬆</div>
+      <div id="growStagePanel" class="grow-stage-panel mt-4 rounded-2xl overflow-hidden max-h-0 opacity-0 p-0">
+        <div class="p-5 md:p-6 relative">
+          <div id="stageCloseX" tabindex="0" role="button" class="absolute top-3 right-3 close-x px-3 py-1 rounded-lg cursor-pointer text-sm border border-[var(--tag-border)] bg-[var(--tag-bg)] text-[var(--text-sub)] hover:text-[var(--text-main)] transition-colors" title="收起详情">
+            <i class="fa-solid fa-xmark mr-1"></i>收起
+          </div>
+          <div class="flex flex-col md:flex-row md:items-center gap-3 md:gap-4 mb-3">
+            <div class="stage-num-tag inline-flex items-center justify-center w-[30px] h-[30px] rounded-full bg-[#ffd54f] text-[#1e293b] font-black text-base flex-shrink-0 border border-[#f0a000]" id="stageNumTag">1</div>
+            <div>
+              <div id="stageTitle" class="font-bold text-lg md:text-xl leading-snug text-[var(--text-main)] st-title">小学 · 启蒙成长</div>
+              <div id="stageSub" class="text-xs md:text-sm opacity-80 text-[var(--text-sub)] mt-[2px]">河南周口 · 小学阶段</div>
+            </div>
+          </div>
+          <div id="stageBody" class="grow-stage-body text-sm md:text-[15px] leading-7 space-y-1"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== ③ 专业技能 ========== -->
+  <section id="skills" class="fade-in mb-10 md:mb-14 scroll-mt-24">
+    <div class="card rounded-3xl p-5 md:p-7">
+      <h2 class="text-xl md:text-2xl font-bold pl-4 py-2 mb-5 flex items-center gap-3">
+        <i class="fa-solid fa-lightbulb mr-1"></i> 专业技能
+        <span class="sub text-sm md:text-base font-normal text-[var(--text-sub)] ml-1 border-0 p-0">· AI 时代的跨界学习</span>
+      </h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-5 md:gap-x-7 md:gap-y-6">
+        <div class="skill p-4 md:p-5 rounded-2xl">
+          <div class="flex items-baseline justify-between mb-2.5"><span class="skill-name font-semibold text-base">AI 编程 / AI 音乐 / Office 办公</span><span class="font-mono text-sm">入门</span></div>
+          <div class="skill-bar h-2"><div class="skill-fill h-full transition-all duration-[1200ms] ease-out" data-w="20" style="width:0%"></div></div>
+          <p class="skill-note mt-2 text-xs md:text-[13px]">Python 基础与提示词工程；了解 AI 音乐生成工具；熟练使用 Word/Excel/PPT 办公软件</p>
+        </div>
+        <div class="skill p-4 md:p-5 rounded-2xl">
+          <div class="flex items-baseline justify-between mb-2.5"><span class="skill-name font-semibold text-base">AI 工具（ChatGPT / 文心 / Kimi）</span><span class="font-mono text-sm">熟练</span></div>
+          <div class="skill-bar h-2"><div class="skill-fill h-full transition-all duration-[1200ms] ease-out" data-w="80" style="width:0%"></div></div>
+          <p class="skill-note mt-2 text-xs md:text-[13px]">熟练运用大模型工具完成写作、学习、创作辅助</p>
+        </div>
+        <div class="skill p-4 md:p-5 rounded-2xl">
+          <div class="flex items-baseline justify-between mb-2.5"><span class="skill-name font-semibold text-base">AI 小游戏（H5 / 互动 Demo）</span><span class="font-mono text-sm">入门</span></div>
+          <div class="skill-bar h-2"><div class="skill-fill h-full transition-all duration-[1200ms] ease-out" data-w="40" style="width:0%"></div></div>
+          <p class="skill-note mt-2 text-xs md:text-[13px]">使用 AI 辅助制作 H5 互动 Demo，探索游戏化表达</p>
+        </div>
+
+        <div class="skill p-4 md:p-5 rounded-2xl">
+          <div class="flex items-baseline justify-between mb-2.5"><span class="skill-name font-semibold text-base">朗诵 & 语言表达</span><span class="font-mono text-sm">擅长</span></div>
+          <div class="skill-bar h-2"><div class="skill-fill h-full transition-all duration-[1200ms] ease-out" data-w="85" style="width:0%"></div></div>
+          <p class="skill-note mt-2 text-xs md:text-[13px]">擅长中文朗诵，情感表达充沛，具备舞台表现力</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== ④ 获奖与证书 ========== -->
+  <section id="awards" class="fade-in mb-10 md:mb-14 scroll-mt-24">
+    <div class="card rounded-3xl p-5 md:p-7 plane-section text-center">
+      <h2 class="text-xl md:text-2xl font-bold py-2 mb-5 flex items-center justify-center gap-3" style="justify-content:center;">
+        <i class="fa-solid fa-trophy mr-1"></i> 获奖与证书
+      </h2>
+      <div id="planeCard" class="inline-block my-2 cursor-pointer select-none" role="button" tabindex="0" title="点击可收起 / 再次点击展开">
+        <svg class="plane-svg" viewBox="0 0 360 260" width="360" height="260" xmlns="http://www.w3.org/2000/svg">
+          <g fill="none" stroke="#000" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round">
+            <polygon points="20,140 330,40 340,130 170,150"/>
+            <line x1="170" y1="150" x2="200" y2="220"/>
+            <line x1="200" y1="220" x2="340" y2="130"/>
+            <line x1="20" y1="140" x2="85" y2="165"/>
+            <line x1="85" y1="165" x2="170" y2="150"/>
+            <line x1="20" y1="140" x2="330" y2="40"/>
+            <line x1="330" y1="40" x2="340" y2="130"/>
+          </g>
+          <text x="180" y="96" class="plane-title" text-anchor="middle">✈ 获奖与证书</text>
+          <text x="180" y="118" class="plane-sub" text-anchor="middle">— 点击飞机可收起详情 —</text>
+        </svg>
+      </div>
+      <!-- 获奖证书：默认展开可见，10 张证书圆形缩略图，点击飞机可收起 -->
+      <div id="awardsDetail" class="awards-detail mt-5">
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 md:gap-4">
+          <div class="award-item rounded-2xl p-2.5 md:p-3">
+            <img src="images/certificates/A1.png" alt="获奖证书 A1" class="award-cert-img">
+            <div class="award-img-fallback"><i class="fa-solid fa-camera"></i>A1.png</div>
+          </div>
+          <div class="award-item rounded-2xl p-2.5 md:p-3">
+            <img src="images/certificates/A2.png" alt="获奖证书 A2" class="award-cert-img">
+            <div class="award-img-fallback"><i class="fa-solid fa-camera"></i>A2.png</div>
+          </div>
+          <div class="award-item rounded-2xl p-2.5 md:p-3">
+            <img src="images/certificates/A3.png" alt="获奖证书 A3" class="award-cert-img">
+            <div class="award-img-fallback"><i class="fa-solid fa-camera"></i>A3.png</div>
+          </div>
+          <div class="award-item rounded-2xl p-2.5 md:p-3">
+            <img src="images/certificates/A4.png" alt="获奖证书 A4" class="award-cert-img">
+            <div class="award-img-fallback"><i class="fa-solid fa-camera"></i>A4.png</div>
+          </div>
+          <div class="award-item rounded-2xl p-2.5 md:p-3">
+            <img src="images/certificates/AI5.png" alt="获奖证书 AI5" class="award-cert-img">
+            <div class="award-img-fallback"><i class="fa-solid fa-camera"></i>AI5.png</div>
+          </div>
+          <div class="award-item rounded-2xl p-2.5 md:p-3">
+            <img src="images/certificates/A科1.png" alt="获奖证书 A科1" class="award-cert-img">
+            <div class="award-img-fallback"><i class="fa-solid fa-camera"></i>A科1.png</div>
+          </div>
+          <div class="award-item rounded-2xl p-2.5 md:p-3">
+            <img src="images/certificates/A科2.png" alt="获奖证书 A科2" class="award-cert-img">
+            <div class="award-img-fallback"><i class="fa-solid fa-camera"></i>A科2.png</div>
+          </div>
+          <div class="award-item rounded-2xl p-2.5 md:p-3">
+            <img src="images/certificates/A科3.png" alt="获奖证书 A科3" class="award-cert-img">
+            <div class="award-img-fallback"><i class="fa-solid fa-camera"></i>A科3.png</div>
+          </div>
+          <div class="award-item rounded-2xl p-2.5 md:p-3">
+            <img src="images/certificates/A科4.png" alt="获奖证书 A科4" class="award-cert-img">
+            <div class="award-img-fallback"><i class="fa-solid fa-camera"></i>A科4.png</div>
+          </div>
+          <div class="award-item rounded-2xl p-2.5 md:p-3">
+            <img src="images/certificates/微信图片8.jpg" alt="获奖证书 微信图片8" class="award-cert-img">
+            <div class="award-img-fallback"><i class="fa-solid fa-camera"></i>微信图片8.jpg</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== ⑤ 兴趣之树 ========== -->
+  <section id="hobby" class="fade-in mb-10 md:mb-14 scroll-mt-24">
+    <div class="card rounded-3xl p-5 md:p-7">
+      <h2 class="text-xl md:text-2xl font-bold pl-4 py-2 mb-5 flex items-center gap-3">
+        <i class="fa-solid fa-tree mr-1"></i> 兴趣爱好
+        <span class="sub text-sm md:text-base font-normal text-[var(--text-sub)] ml-1 border-0 p-0">· 生命之树 · 编号 1-4 · 每个编号独立一框</span>
+      </h2>
+      <div class="tree-wrap relative w-full rounded-2xl overflow-hidden" style="height:520px;">
+        <svg viewBox="0 0 800 520" preserveAspectRatio="xMidYMid slice" class="tree-svg w-full h-full" xmlns="http://www.w3.org/2000/svg">
+          <ellipse cx="400" cy="510" rx="380" ry="22" fill="#6ab04c" opacity="0.7"/>
+          <ellipse cx="400" cy="505" rx="340" ry="16" fill="#82c964"/>
+          <g fill="#ffb6b9"><circle cx="120" cy="500" r="3"/><circle cx="680" cy="502" r="3"/><circle cx="260" cy="506" r="2.5"/></g>
+          <g fill="#ffe066"><circle cx="200" cy="498" r="2.5"/><circle cx="600" cy="505" r="2.8"/></g>
+          <g class="trunk">
+            <path d="M388,500 C380,460 372,420 378,380 C382,350 392,330 400,310 C408,330 418,350 422,380 C428,420 420,460 412,500 Z" fill="#6b4423" stroke="#3e2a14" stroke-width="2"/>
+            <path d="M392,470 C396,455 390,440 395,420" fill="none" stroke="#3e2a14" stroke-width="1.2" opacity="0.6"/>
+            <path d="M408,460 C404,442 410,425 406,405" fill="none" stroke="#3e2a14" stroke-width="1.2" opacity="0.6"/>
+            <path d="M396,395 C400,385 394,375 400,365" fill="none" stroke="#3e2a14" stroke-width="1.2" opacity="0.6"/>
+            <path d="M400,340 C360,320 320,295 290,270" fill="none" stroke="#5a3918" stroke-width="10" stroke-linecap="round"/>
+            <path d="M400,320 C440,300 485,280 520,255" fill="none" stroke="#5a3918" stroke-width="10" stroke-linecap="round"/>
+            <path d="M400,300 C400,260 396,230 402,200" fill="none" stroke="#5a3918" stroke-width="10" stroke-linecap="round"/>
+            <path d="M330,280 C310,260 298,248 280,238" fill="none" stroke="#5a3918" stroke-width="6" stroke-linecap="round"/>
+            <path d="M470,275 C490,255 505,245 525,230" fill="none" stroke="#5a3918" stroke-width="6" stroke-linecap="round"/>
+          </g>
+          <g class="leaf-group leaf-sway-a">
+            <g fill="#2d7a2d"><ellipse cx="290" cy="230" rx="60" ry="48"/><ellipse cx="200" cy="270" rx="52" ry="44"/><ellipse cx="510" cy="220" rx="64" ry="52"/><ellipse cx="590" cy="275" rx="55" ry="46"/><ellipse cx="400" cy="140" rx="58" ry="52"/><ellipse cx="330" cy="180" rx="50" ry="44"/><ellipse cx="470" cy="170" rx="52" ry="46"/><ellipse cx="260" cy="330" rx="48" ry="40"/><ellipse cx="540" cy="320" rx="52" ry="42"/></g>
+            <g fill="#4ca64c"><ellipse cx="310" cy="245" rx="50" ry="40"/><ellipse cx="225" cy="278" rx="44" ry="36"/><ellipse cx="490" cy="235" rx="54" ry="44"/><ellipse cx="565" cy="282" rx="46" ry="38"/><ellipse cx="400" cy="165" rx="48" ry="42"/><ellipse cx="348" cy="195" rx="42" ry="36"/><ellipse cx="455" cy="190" rx="44" ry="38"/><ellipse cx="280" cy="325" rx="40" ry="34"/><ellipse cx="520" cy="315" rx="44" ry="36"/><ellipse cx="400" cy="230" rx="60" ry="50"/></g>
+            <g fill="#7cc47c"><ellipse cx="330" cy="258" rx="40" ry="32"/><ellipse cx="480" cy="250" rx="42" ry="34"/><ellipse cx="402" cy="185" rx="38" ry="34"/><ellipse cx="400" cy="248" rx="46" ry="38"/><ellipse cx="360" cy="285" rx="36" ry="30"/><ellipse cx="445" cy="280" rx="38" ry="32"/></g>
+            <g fill="#5cb85c"><ellipse cx="175" cy="240" rx="18" ry="14" transform="rotate(-20 175 240)"/><ellipse cx="620" cy="240" rx="20" ry="15" transform="rotate(25 620 240)"/><ellipse cx="260" cy="170" rx="16" ry="12" transform="rotate(-15 260 170)"/><ellipse cx="545" cy="150" rx="18" ry="13" transform="rotate(20 545 150)"/><ellipse cx="400" cy="110" rx="16" ry="12"/></g>
+          </g>
+          <g fill="#7cc47c" opacity="0.85"><ellipse cx="140" cy="380" rx="7" ry="4" transform="rotate(35 140 380)"/><ellipse cx="660" cy="370" rx="7" ry="4" transform="rotate(-25 660 370)"/><ellipse cx="160" cy="440" rx="6" ry="3.5" transform="rotate(-15 160 440)"/><ellipse cx="640" cy="430" rx="6" ry="3.5" transform="rotate(40 640 430)"/></g>
+        </svg>
+        <div class="hobby-chip absolute rounded-full px-4 py-2.5 flex items-center gap-2.5 z-10 hc-pos-1"><span class="hc-num w-[34px] h-[34px] rounded-full bg-[#ff6b6b] text-white flex items-center justify-center font-black text-lg border-2 border-white">1</span><span class="hc-emoji text-2xl">🏸</span><span class="hc-name font-bold text-lg tracking-wide whitespace-nowrap">打羽毛球</span></div>
+        <div class="hobby-chip absolute rounded-full px-4 py-2.5 flex items-center gap-2.5 z-10 hc-pos-2"><span class="hc-num w-[34px] h-[34px] rounded-full bg-[#ff6b6b] text-white flex items-center justify-center font-black text-lg border-2 border-white">2</span><span class="hc-emoji text-2xl">📺</span><span class="hc-name font-bold text-lg tracking-wide whitespace-nowrap">追剧</span></div>
+        <div class="hobby-chip absolute rounded-full px-4 py-2.5 flex items-center gap-2.5 z-10 hc-pos-3"><span class="hc-num w-[34px] h-[34px] rounded-full bg-[#ff6b6b] text-white flex items-center justify-center font-black text-lg border-2 border-white">3</span><span class="hc-emoji text-2xl">🐶</span><span class="hc-name font-bold text-lg tracking-wide whitespace-nowrap">喜欢小狗</span></div>
+        <div class="hobby-chip absolute rounded-full px-4 py-2.5 flex items-center gap-2.5 z-10 hc-pos-4"><span class="hc-num w-[34px] h-[34px] rounded-full bg-[#ff6b6b] text-white flex items-center justify-center font-black text-lg border-2 border-white">4</span><span class="hc-emoji text-2xl">🎵</span><span class="hc-name font-bold text-lg tracking-wide whitespace-nowrap">听歌</span></div>
+        <!-- 4 张兴趣照片：依次按 1/2/3/4 顺序挂在对应编号标签下方 -->
+        <div class="hobby-photo hp-1">
+          <img src="images/hobby/微信图片1.jpg" alt="打羽毛球照片">
+          <span class="hp-fallback">微信图片1.jpg</span>
+        </div>
+        <div class="hobby-photo hp-2">
+          <img src="images/hobby/微信图片2.jpg" alt="追剧照片">
+          <span class="hp-fallback">微信图片2.jpg</span>
+        </div>
+        <div class="hobby-photo hp-3">
+          <img src="images/hobby/微信图片3.jpg" alt="喜欢小狗照片">
+          <span class="hp-fallback">微信图片3.jpg</span>
+        </div>
+        <div class="hobby-photo hp-4">
+          <img src="images/hobby/微信图片4.jpg" alt="听歌照片">
+          <span class="hp-fallback">微信图片4.jpg</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== ⑥ 技能展示 ========== -->
+  <section id="skillsShow" class="fade-in mb-10 md:mb-14 scroll-mt-24">
+    <div class="card rounded-3xl p-5 md:p-7">
+      <h2 class="text-xl md:text-2xl font-bold pl-4 py-2 mb-5 flex items-center gap-3"><i class="fa-solid fa-video mr-1"></i> 技能展示</h2>
+      <div class="w-full max-w-4xl mx-auto">
+        <div class="relative w-full aspect-video rounded-2xl overflow-hidden border-[1.5px] border-dashed border-[var(--primary)] bg-slate-900/30">
+          <video id="skillVideo" src="images/video/微信视频7.mp4" controls class="w-full h-full object-contain bg-black" poster="" preload="metadata">您的浏览器暂不支持 HTML5 视频播放。</video>
+          <div id="skillVideoPlaceholder" class="absolute inset-0 w-full h-full flex flex-col items-center justify-center text-center px-6 gap-3.5 pointer-events-none">
+            <i class="fa-solid fa-video text-5xl md:text-6xl" style="color:var(--primary); opacity:0.9;"></i>
+            <div class="text-base md:text-xl font-extrabold" style="color:var(--primary);">视频展示区（占位）</div>
+            <div class="text-xs md:text-sm opacity-80 max-w-xl leading-7 text-[var(--text-sub)]">
+              后期请将本栏目 HTML 中 <code class="px-1.5 py-0.5 rounded bg-[var(--tag-bg)] border border-[var(--tag-border)] mx-0.5">&lt;video&gt;</code> 标签的
+              <code class="px-1.5 py-0.5 rounded bg-[var(--tag-bg)] border border-[var(--tag-border)] mx-0.5">src</code> 替换为自己的视频地址，
+              <code class="px-1.5 py-0.5 rounded bg-[var(--tag-bg)] border border-[var(--tag-border)] mx-0.5">poster</code> 替换为封面图片地址即可自动播放展示。
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== ⑦ 未来展望 ========== -->
+  <section id="expect" class="fade-in mb-10 md:mb-14 scroll-mt-24">
+    <div class="card rounded-3xl p-5 md:p-7">
+      <h2 class="text-xl md:text-2xl font-bold pl-4 py-2 mb-5 flex items-center gap-3">
+        <i class="fa-solid fa-rainbow mr-1"></i> 未来展望
+        <span class="sub text-sm md:text-base font-normal text-[var(--text-sub)] ml-1 border-0 p-0">· 大学期待 & 自我评价</span>
+      </h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5">
+        <div class="expect-card p-4 md:p-5 rounded-2xl"><h3 class="text-lg font-bold mb-2 flex items-center gap-2"><i class="fa-solid fa-pen-nib"></i> 专业深耕</h3><p>在汉语言文学专业中扎实学习，培养深厚的人文素养与文字表达能力，读万卷书、行万里路。</p></div>
+        <div class="expect-card p-4 md:p-5 rounded-2xl"><h3 class="text-lg font-bold mb-2 flex items-center gap-2"><i class="fa-solid fa-robot"></i> AI × 人文跨界</h3><p>持续学习 AI 编程与 AI 创作工具，探索「人文 × 科技」的融合之路——让 AI 对话更有人情味，让人文在 AI 时代更有温度。</p></div>
+        <div class="expect-card p-4 md:p-5 rounded-2xl"><h3 class="text-lg font-bold mb-2 flex items-center gap-2"><i class="fa-solid fa-microphone-lines"></i> 表达与舞台</h3><p>积极参与朗诵、演讲、主持等活动，锻炼表达能力与自信心，在更大的舞台上发出自己的声音。</p></div>
+        <div class="expect-card p-4 md:p-5 rounded-2xl"><h3 class="text-lg font-bold mb-2 flex items-center gap-2"><i class="fa-solid fa-star"></i> 性格优势</h3><p>ESFP 热情积极、充满斗志，适应能力强，善于沟通协作，乐于在团队中承担责任、带动氛围。</p></div>
+        <div class="expect-card p-4 md:p-5 rounded-2xl sm:col-span-2 lg:col-span-2"><h3 class="text-lg font-bold mb-2 flex items-center gap-2"><i class="fa-solid fa-bullseye"></i> 成长信条</h3><p>找到自己的频率，随性且自由——保持热爱，保持好奇，在不确定的世界里稳步前行、向阳生长。</p></div>
+      </div>
+      <div class="mt-6 text-center text-sm md:text-base opacity-80 leading-8">
+        <i class="fa-solid fa-heart mr-1" style="color:#ff6b8a;"></i>这就是我，付美雪。一个正在认真长大、慢慢找到自己频率的女孩。<br/>谢谢屏幕前的你耐心看完我的简历 ❣️
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="text-center py-8 px-4 text-[var(--text-sub)] text-sm relative z-10">
+  <div>© 2026 付美雪 · 个人简历 · 本页支持一键打印 / 导出 PDF</div>
+</footer>
+
+<!-- ================= 脚本（内联，双击 file:// 打开也能正常运行） ================= -->
+<script>
+// ============================================================
+// 付美雪个人简历 - 脚本逻辑
+// 功能: 主题切换、气泡动画、导航高亮、地图交互、飞机展开、渐入动画、星空
+// ============================================================
+(function () {
+  'use strict';
+  var THEME_KEY = 'fmx_theme', THEME_DARK = 'dark', THEME_LIGHT = 'light';
+  var BUBBLE_COUNT = 18;
+  var NAV_SECTION_IDS = ['hero','grow','skills','awards','hobby','skillsShow','expect'];
+  var SCROLL_ACTIVE_OFFSET = 120;
+
+  function applyTheme(theme) {
+    var safe = theme === THEME_LIGHT ? THEME_LIGHT : THEME_DARK;
+    document.body.setAttribute('data-theme', safe);
+    try { localStorage.setItem(THEME_KEY, safe); } catch (e) {}
+  }
+  function initTheme() {
+    var saved = null;
+    try { saved = localStorage.getItem(THEME_KEY); } catch (e) {}
+    applyTheme(saved === THEME_LIGHT ? THEME_LIGHT : THEME_DARK);
+    ['themeBtn','themeBtnMobile'].forEach(function (id) {
+      var btn = document.getElementById(id);
+      if (btn) btn.addEventListener('click', function () {
+        var cur = document.body.getAttribute('data-theme');
+        applyTheme(cur === THEME_LIGHT ? THEME_DARK : THEME_LIGHT);
+      });
+    });
+  }
+  function makeBubbles() {
+    var wrap = document.getElementById('bubbles'); if (!wrap) return;
+    var frag = document.createDocumentFragment();
+    for (var i = 0; i < BUBBLE_COUNT; i++) {
+      var b = document.createElement('div'); b.className = 'bubble';
+      var size = 10 + Math.random() * 48;
+      b.style.width = size + 'px'; b.style.height = size + 'px';
+      b.style.left = (Math.random() * 100) + 'vw';
+      b.style.animationDuration = (8 + Math.random() * 14) + 's';
+      b.style.animationDelay = (-Math.random() * 14) + 's';
+      b.style.opacity = 0.4 + Math.random() * 0.5;
+      frag.appendChild(b);
+    }
+    wrap.appendChild(frag);
+  }
+  function initHamburger() {
+    var btn = document.getElementById('hamburgerBtn'), list = document.getElementById('mainNavList');
+    if (!btn || !list) return;
+    function toggle(force) {
+      var will = typeof force === 'boolean' ? force : list.classList.contains('hidden');
+      list.classList.toggle('hidden', !will);
+      btn.setAttribute('aria-expanded', will ? 'true' : 'false');
+    }
+    btn.addEventListener('click', function () { toggle(); });
+    /* 初始化修正：宽屏（≥768px）时移除 mobile 隐藏态，保证 md:flex 导航首次加载即可见 */
+    if (window.innerWidth >= 768) { list.classList.remove('hidden'); btn.setAttribute('aria-expanded', 'true'); }
+    list.querySelectorAll('.tab').forEach(function (t) {
+      t.addEventListener('click', function () {
+        if (!list.classList.contains('hidden') && window.innerWidth < 768) toggle(false);
+      });
+    });
+    window.addEventListener('resize', function () {
+      if (window.innerWidth >= 768) { list.classList.remove('hidden'); btn.setAttribute('aria-expanded','true'); }
+    });
+  }
+  function initNavigation() {
+    var wrap = document.getElementById('navTabs'); if (!wrap) return;
+    var tabs = wrap.querySelectorAll('.tab'); if (tabs.length === 0) return;
+    tabs.forEach(function (t) {
+      t.addEventListener('click', function () {
+        var id = t.getAttribute('data-target'); if (!id) return;
+        var el = document.getElementById(id);
+        if (el) el.scrollIntoView({behavior:'smooth', block:'start'});
+      });
+    });
+    function onScroll() {
+      var cur = NAV_SECTION_IDS[0];
+      for (var i = 0; i < NAV_SECTION_IDS.length; i++) {
+        var s = document.getElementById(NAV_SECTION_IDS[i]);
+        if (!s) continue;
+        var r = s.getBoundingClientRect();
+        if (r.top <= SCROLL_ACTIVE_OFFSET) cur = NAV_SECTION_IDS[i];
+      }
+      tabs.forEach(function (t) {
+        var active = t.getAttribute('data-target') === cur;
+        t.classList.toggle('active', active);
+        t.setAttribute('aria-selected', active ? 'true' : 'false');
+      });
+    }
+    window.addEventListener('scroll', onScroll, {passive:true});
+    onScroll();
+  }
+  function initAwardsPlane() {
+    var plane = document.getElementById('planeCard'), detail = document.getElementById('awardsDetail');
+    if (!plane || !detail) return;
+    function toggle() {
+      detail.classList.toggle('collapsed');
+      var isCollapsed = detail.classList.contains('collapsed');
+      var sub = plane.querySelector('.plane-sub');
+      if (sub) sub.textContent = isCollapsed ? '— 点击飞机再次展开 —' : '— 点击飞机可收起详情 —';
+    }
+    plane.addEventListener('click', toggle);
+    plane.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ' || e.keyCode === 13 || e.keyCode === 32) { e.preventDefault(); toggle(); }
+    });
+  }
+  function initGrowMap() {
+    var tip = document.getElementById('mapTip'), mwrap = document.querySelector('.map-wrap');
+    var panel = document.getElementById('growStagePanel');
+    var num = document.getElementById('stageNumTag'), title = document.getElementById('stageTitle');
+    var sub = document.getElementById('stageSub'), body = document.getElementById('stageBody');
+    var cx = document.getElementById('stageCloseX');
+    var nodes = document.querySelectorAll('.map-node.route-num');
+    if (!tip || !mwrap || !panel || nodes.length === 0) return;
+    function moveTip(e) { var r = mwrap.getBoundingClientRect(); tip.style.left = (e.clientX-r.left)+'px'; tip.style.top = (e.clientY-r.top)+'px'; }
+    nodes.forEach(function (n) {
+      n.addEventListener('mouseenter', function (e) {
+        tip.innerHTML = '<b style="color:#ffd54f;">'+(n.getAttribute('data-title')||'')+'</b><br/>'+(n.getAttribute('data-sub')||'');
+        tip.style.display='block'; moveTip(e);
+      });
+      n.addEventListener('mousemove', moveTip);
+      n.addEventListener('mouseleave', function () { tip.style.display='none'; });
+      n.addEventListener('click', function () {
+        if (num) num.textContent = n.getAttribute('data-stage') || '';
+        if (title) title.textContent = n.getAttribute('data-title') || '';
+        if (sub) sub.textContent = n.getAttribute('data-sub') || '';
+        if (body) body.innerHTML = n.getAttribute('data-content') || '';
+        panel.classList.remove('open'); void panel.offsetWidth;
+        panel.classList.add('open');
+        panel.scrollIntoView({behavior:'smooth', block:'nearest'});
+      });
+    });
+    function close() { panel.classList.remove('open'); }
+    if (cx) {
+      cx.addEventListener('click', close);
+      cx.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ' || e.keyCode === 13 || e.keyCode === 32) { e.preventDefault(); close(); }
+      });
+    }
+  }
+  function initScrollReveal() {
+    document.querySelectorAll('.skill-fill').forEach(function (f) {
+      if (!f.style.width || f.style.width === '0%') f.style.width = '0%';
+    });
+    var list = document.querySelectorAll('.fade-in'); if (list.length === 0) return;
+    /* 硬兜底：2.6 秒后无论观察器/动画是否正常（应对微信内核回调延迟或冻结），强制全部显示 */
+    setTimeout(function () {
+      list.forEach(function (el) {
+        if (!el.classList.contains('show')) el.classList.add('show');
+        el.querySelectorAll('.skill-fill').forEach(function (f) {
+          if (!f.style.width || f.style.width === '0%') f.style.width = (f.getAttribute('data-w') || 0) + '%';
+        });
+      });
+    }, 2600);
+    if (typeof IntersectionObserver !== 'function') {
+      list.forEach(function (el) {
+        el.classList.add('show');
+        el.querySelectorAll('.skill-fill').forEach(function (f) { f.style.width = (f.getAttribute('data-w')||0) + '%'; });
+      });
+      return;
+    }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting) {
+          en.target.classList.add('show');
+          en.target.querySelectorAll('.skill-fill').forEach(function (f) { f.style.width = (f.getAttribute('data-w')||0) + '%'; });
+          io.unobserve(en.target);
+        }
+      });
+    }, {threshold: 0.12});
+    list.forEach(function (el) { io.observe(el); });
+  }
+  function initSkillVideo() {
+    var v = document.getElementById('skillVideo'), p = document.getElementById('skillVideoPlaceholder');
+    if (!v || !p) return;
+    function sync() {
+      var hasSrc = (v.getAttribute('src') && v.getAttribute('src').length > 0) || (v.querySelectorAll('source').length > 0);
+      p.style.display = hasSrc ? 'none' : 'flex';
+    }
+    sync();
+    try {
+      var mo = new MutationObserver(sync);
+      mo.observe(v, {attributes:true, attributeFilter:['src'], childList:true, subtree:true});
+    } catch (e) {}
+  }
+
+  function initStars() {
+    var STAR_THEMES = {
+      hero:       { density: 0.000105, colors: ['#bfeaff', '#ffffff', '#7fe7ff'], dur: [2.2, 4.8], sizeMax: 2.4, shoot: 1 },
+      grow:       { density: 0.000080, colors: ['#cfe0ff', '#ffffff', '#a9c8ff'], dur: [3.0, 6.5], sizeMax: 2.0, shoot: 0 },
+      skills:     { density: 0.000100, colors: ['#7fe7ff', '#bfeaff', '#ffffff'], dur: [2.0, 4.2], sizeMax: 2.3, shoot: 1 },
+      awards:     { density: 0.000090, colors: ['#ffd97a', '#ffe9b0', '#fff6d9'], dur: [2.6, 5.4], sizeMax: 2.4, shoot: 0 },
+      hobby:      { density: 0.000115, colors: ['#7fe7ff', '#ffd97a', '#ffffff'], dur: [2.2, 4.6], sizeMax: 2.4, shoot: 1 },
+      skillsShow: { density: 0.000105, colors: ['#7fe7ff', '#bfeaff', '#ffffff'], dur: [2.0, 4.0], sizeMax: 2.3, shoot: 1 },
+      expect:     { density: 0.000125, colors: ['#ffffff', '#e8f6ff', '#bfeaff'], dur: [2.4, 5.0], sizeMax: 2.6, shoot: 1 }
+    };
+    var FALLBACK = { density: 0.000090, colors: ['#bfeaff', '#ffffff'], dur: [2.5, 5.0], sizeMax: 2.2, shoot: 0 };
+    var sections = document.querySelectorAll('section.fade-in[id]');
+    if (!sections.length) return;
+    var isMobile = window.innerWidth < 640;
+    sections.forEach(function (sec) {
+      if (sec.querySelector(':scope > .stars-layer')) return;
+      var cfg = STAR_THEMES[sec.id] || FALLBACK;
+      var layer = document.createElement('div');
+      layer.className = 'stars-layer';
+      layer.setAttribute('aria-hidden', 'true');
+      var w = sec.offsetWidth || 800;
+      var h = Math.max(sec.offsetHeight || 0, 320);
+      var count = Math.round(w * h * cfg.density * (isMobile ? 0.6 : 1));
+      count = Math.max(isMobile ? 18 : 24, Math.min(count, isMobile ? 55 : 90));
+      var frag = document.createDocumentFragment();
+      for (var i = 0; i < count; i++) {
+        var s = document.createElement('span');
+        s.className = 'star-dot' + (Math.random() < 0.18 ? ' star-bright' : '');
+        var size = 0.8 + Math.random() * (cfg.sizeMax - 0.8);
+        s.style.width = size.toFixed(1) + 'px';
+        s.style.height = size.toFixed(1) + 'px';
+        s.style.left = (Math.random() * 100).toFixed(2) + '%';
+        s.style.top = (Math.random() * 100).toFixed(2) + '%';
+        var color = cfg.colors[Math.floor(Math.random() * cfg.colors.length)];
+        s.style.background = color;
+        s.style.color = color;
+        var dur = cfg.dur[0] + Math.random() * (cfg.dur[1] - cfg.dur[0]);
+        s.style.animationDuration = dur.toFixed(2) + 's';
+        s.style.animationDelay = (-Math.random() * dur).toFixed(2) + 's';
+        frag.appendChild(s);
+      }
+      for (var j = 0; j < cfg.shoot; j++) {
+        var sh = document.createElement('span');
+        sh.className = 'star-shoot';
+        sh.style.left = (55 + Math.random() * 38).toFixed(1) + '%';
+        sh.style.top = (4 + Math.random() * 22).toFixed(1) + '%';
+        var sd = 9 + Math.random() * 6;
+        sh.style.animationDuration = sd.toFixed(1) + 's';
+        sh.style.animationDelay = (-Math.random() * sd).toFixed(1) + 's';
+        frag.appendChild(sh);
+      }
+      layer.appendChild(frag);
+      sec.insertBefore(layer, sec.firstChild);
+    });
+  }
+
+  function boot() {
+    document.body.classList.add('js-loaded');
+    var mods = [initTheme, makeBubbles, initHamburger, initNavigation, initAwardsPlane, initGrowMap, initScrollReveal, initSkillVideo, initStars];
+    mods.forEach(function (fn) { try { fn(); } catch (err) { if (window.console && console.error) console.error('[FMX]错误', err); } });
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', boot);
+  } else {
+    boot();
+  }
+})();
+</script>
+
+
+</body>
+</html>
